@@ -4,13 +4,15 @@ from tkinter import ttk
 
 from PIL import Image, ImageTk
 
+from manager.LanguageManager import LanguageManager
 from widget.icon_checkbox import IconCheckbox
 from util.event_bus import event_bus
 from util.image_util import resize_image
 
 
-class SearchFilterOptions:
+class SearchFilterOptions(LanguageManager):
     def __init__(self, parent):
+        super().__init__()
         self.filter_icon = None
         self.parent = parent
         self.filter_source_dropdown = None
@@ -47,7 +49,7 @@ class SearchFilterOptions:
         self.select_all_checkbox = IconCheckbox(filter_bottom_frame)
         self.select_all_checkbox.pack(side=tk.RIGHT, padx=(0, 0), pady=0)  # Adjust padding as needed
         self.select_all_checkbox.set_enabled(False)
-        self.select_all_label = tk.Label(filter_bottom_frame, text="全选", width=0)
+        self.select_all_label = tk.Label(filter_bottom_frame, text=self._("All"), width=0)
         self.select_all_label.pack(side=tk.RIGHT, padx=(0, 5), pady=10)
         self.select_all_checkbox.bind("<<CheckboxToggled>>", self.toggle_select_all)
         event_bus.subscribe("ReadyConvert", self.on_ready_convert)

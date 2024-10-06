@@ -7,6 +7,7 @@ from ttkbootstrap import Style
 from manager.LanguageManager import LanguageManager
 from manager.conversion_manager import ConversionManager
 from setting.encoding_options import EncodingOptions
+from util.convert_po_to_mo import convert_po_to_mo
 from view.file_list_view import FileListView
 from manager.file_manager import FileManager
 from setting.filter_options import FilterOptions
@@ -21,6 +22,7 @@ class EncodingConverterApp(tk.Tk, LanguageManager):
     def __init__(self):
         tk.Tk.__init__(self)
         LanguageManager.__init__(self)
+        convert_po_to_mo()
         self.title(self._("encoding convert tool"))
         self.geometry("1000x620")
         center_window(self, 1000, 620)

@@ -87,9 +87,13 @@
 ## 项目结构
 
     encoding_converter/
+    ├── config/
+    │   ├── config.json 
     ├── utils/
     │   ├── window_util.py 
     │   ├── image_util.py 
+    │   ├── config_loader.py 
+    │   ├── convert_po_to_mo.py 
     │   ├── chardet_util.py 
     │   └── event_bus.py 
     ├── widgets/
@@ -121,8 +125,10 @@
     ├── locales/ 
     │   ├── zh_CN/ 
     │   │   └── LC_MESSAGES/ 
-    │   │   ├── messages.po 
-    │   │   └── messages.mo
+    │   │       ├── messages.po 
+    │   ├── en_US/ 
+    │   │   └── LC_MESSAGES/ 
+    │   │       ├── messages.po 
     ├── main.py
     ├── .gitignore
     ├── requirements.txt

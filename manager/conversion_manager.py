@@ -1,4 +1,5 @@
 # conversion_manager.py
+import copy
 import os
 import threading
 import tkinter as tk
@@ -7,6 +8,7 @@ from tkinter import ttk
 
 from ttkbootstrap import Style
 
+from manager.LanguageManager import LanguageManager
 from util.char_util import detect_encoding
 from util.event_bus import event_bus
 
@@ -20,8 +22,9 @@ class ButtonState:
     FINISHED = 5
 
 
-class ConversionManager:
+class ConversionManager(LanguageManager):
     def __init__(self, parent):
+        super().__init__()
         self.parent = parent
         self.convert_button = None
         self.button_state = ButtonState.LOADING
@@ -86,7 +89,8 @@ class ConversionManager:
             text="等待加载",
             command=self.threading_convert_files,
             style="Custom.TButton",
-            state='disabled'
+            state='disabled',
+            width=10
         )
         self.convert_button.pack(side=tk.RIGHT, pady=0)
         self.update_button_state(ButtonState.WAITING)
@@ -97,12 +101,15 @@ class ConversionManager:
     def convert_files(self):
         self.parent.conversion_manager.reset_convert_button_and_progress_bar()
         self.update_button_state(ButtonState.CONVERTING)
-        encodings = self.parent.encoding_options.get_encodings()
+        setting_encodings = self.parent.encoding_options.get_encodings()
         file_paths = self.parent.file_list_view.filtered_list
         total_files = len(file_paths)
         self.parent.progress_manager.progress_bar.set_total_count(total_files)
         self.parent.progress_manager.progress_bar.current_count = 0  # Reset progress
+        total_count = 0
+        error_count = 0
         for index, file_path in enumerate(file_paths):
+            encodings = copy.copy(setting_encodings)
             if not self.parent.file_list_view.checkbox_vars[index].get():
                 continue  # Skip unchecked files
             image_label = self.parent.file_list_view.notification_image_labels[index]
@@ -115,23 +122,29 @@ class ConversionManager:
                 print(e)
                 tip = e.reason
                 image_label.configure(image=self.parent.file_list_view.error_scaled_image)
+                error_count += 1
             except Exception as e:
                 print(e)
                 tip = e
                 image_label.configure(image=self.parent.file_list_view.error_scaled_image)
+                error_count += 1
             finally:
                 self.parent.progress_manager.progress_bar.go_forward(1)
+            total_count += 1
             event_bus.publish("ShowTooltip", data=(image_label, tip))
             txt_label.configure(text=f"{encodings['source']} -> {encodings['target']}")
         self.update_button_state(ButtonState.FINISHED)
         self.parent.focus_set()
-        messagebox.showinfo("成功", "文件转换完成！")
+        tip = self._("File conversion completed!")
+        convert_str = self._("converted")
+        error_str = self._("error")
+        messagebox.showinfo(self._("Completed"), self._(f"{tip} \n {convert_str:}: {total_count}, {error_str}: {error_count}"))
 
     def convert_encoding(self, input_file, encodings):
         # Auto-detect source encoding if needed
         source_encoding = encodings["source"]
         target_encoding = encodings["target"]
-        if source_encoding == "自动识别":
+        if source_encoding == self._("Auto Detect"):
             source_encoding = detect_encoding(input_file)
             encodings["source"] = source_encoding
         with open(input_file, 'r', encoding=source_encoding) as f:
@@ -154,25 +167,25 @@ class ConversionManager:
     def update_button_state(self, state):
         publish_select_all_event = False
         if state == ButtonState.WAITING:
-            self.convert_button.configure(state='disabled', text="等待加载")
+            self.convert_button.configure(state='disabled', text=self._("Waiting"))
             self.convert_button.configure(style="Waiting.TButton")
         if state == ButtonState.LOADING:
-            self.convert_button.configure(state='disabled', text="正在加载")
+            self.convert_button.configure(state='disabled', text=self._("Loading"))
             self.convert_button.configure(style="Loading.TButton")
         if state == ButtonState.DISABLED:
-            self.convert_button.configure(state='disabled', text="开始转换")
+            self.convert_button.configure(state='disabled', text=self._("Start"))
             self.convert_button.configure(style="Ready.TButton")
             self.convert_button.state(['disabled'])
             publish_select_all_event = True
         elif state == ButtonState.ENABLED:
-            self.convert_button.configure(state='normal', text="开始转换")
+            self.convert_button.configure(state='normal', text=self._("Start"))
             self.convert_button.configure(style="Ready.TButton")
             publish_select_all_event = True
         elif state == ButtonState.CONVERTING:
             self.convert_button.configure(style="Clicked.TButton")
-            self.convert_button.configure(state='disabled', text="正在转换")
+            self.convert_button.configure(state='disabled', text=self._("Converting"))
         elif state == ButtonState.FINISHED:
-            self.convert_button.configure(state='disabled', text="转换完成")
+            self.convert_button.configure(state='disabled', text=self._("Finish"))
             self.convert_button.configure(style="ConvertFinished.TButton")
             publish_select_all_event = True
         if publish_select_all_event:
@@ -196,10 +209,7 @@ class ConversionManager:
             self.update_button_state(ButtonState.DISABLED)
 
     def reset_convert_button_and_progress_bar(self):
-        self.convert_button.configure(text="正在加载")
-        self.convert_button.configure(style="Loading.TButton")
-        self.convert_button.configure(state='disabled')
-        self.button_state = ButtonState.LOADING
+        self.update_button_state(ButtonState.LOADING)
         if self.parent.progress_manager.progress_bar:
             self.parent.progress_manager.progress_bar.clean()
 

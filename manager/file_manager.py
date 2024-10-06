@@ -4,9 +4,12 @@ from pathlib import Path
 from tkinter import filedialog
 from tkinter import ttk
 
+from manager.LanguageManager import LanguageManager
 
-class FileManager:
+
+class FileManager(LanguageManager):
     def __init__(self, parent):
+        super().__init__()
         self.parent = parent
         self.path_entry = None
         self.file_list = []
@@ -15,9 +18,9 @@ class FileManager:
         self.path_entry = ttk.Entry(frame, state='readonly')
         self.path_entry.pack(side=tk.LEFT, fill=tk.X, padx=(0, 10), pady=10, expand=True)
         self.path_entry.config(cursor="arrow")
-        browse_file_btn = ttk.Button(frame, text="选择文件", command=self.select_files)
+        browse_file_btn = ttk.Button(frame, text=self._("Select File"), command=self.select_files)
         browse_file_btn.pack(side=tk.LEFT, padx=10, pady=10)
-        browse_dir_btn = ttk.Button(frame, text="选择文件夹", command=self.select_directory)
+        browse_dir_btn = ttk.Button(frame, text=self._("Select Directory"), command=self.select_directory)
         browse_dir_btn.pack(side=tk.LEFT, padx=(10, 0), pady=10)
 
     def select_files(self):

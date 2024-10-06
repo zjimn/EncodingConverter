@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Auto Detect"
+msgstr "自动识别"
+
+msgid "Source Encoding:"
+msgstr "源编码:"
+
+msgid "Target Encoding:"
+msgstr "目标编码:"
+
+msgid "Filter File:"
+msgstr "过滤文件:"
+
+msgid "Except File:"
+msgstr "排除文件:"
+
+msgid "All"
+msgstr "全选"
+
+msgid "Select File"
+msgstr "选择文件"
+
+msgid "Select Directory"
+msgstr "选择文件夹"
+
+msgid "Waiting"
+msgstr "等待加载"
+
+msgid "Loading"
+msgstr "正在加载"
+
+msgid "Start"
+msgstr "开始转换"
+
+msgid "Converting"
+msgstr "正在转换"
+
+msgid "Finish"
+msgstr "转换完成"
+
+msgid "Completed"
+msgstr "完成"
+
+msgid "File conversion completed!"
+msgstr "文件转换完成！"
+
+msgid "converted"
+msgstr "转换"
+
+msgid "error"
+msgstr "错误"

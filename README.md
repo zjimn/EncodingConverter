@@ -26,7 +26,7 @@
 
 ## 截图
 
-![编码转换工具截图](res/img/main_page.png)
+![编码转换工具截图](https://github.com/user-attachments/assets/99ab1a70-1774-4806-947b-4d921eb433b9)
 
 *展示编码转换工具界面的截图。*
 

@@ -24,6 +24,7 @@ class IconCheckbox(tk.Label):
             self.is_checked = not self.is_checked
             self.config(image=self.icon_checked if self.is_checked else self.icon_unchecked)
             self.event_generate('<<CheckboxToggled>>', when='tail')
+            self.focus_set()  # Set focus to the IconCheckbox
 
     def set_enabled(self, enabled):
         self.is_enabled = enabled

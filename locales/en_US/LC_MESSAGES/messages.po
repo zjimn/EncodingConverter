@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "encoding convert tool"
+msgstr "encoding convert tool"
+
+msgid "Auto Detect"
+msgstr "Auto Detect"
+
+msgid "Source Encoding:"
+msgstr "Source Encoding:"
+
+msgid "Source Encoding:"
+msgstr "Source Encoding:"
+
+msgid "Filter File:"
+msgstr "Filter File:"
+
+msgid "Except File:"
+msgstr "Except File:"
+
+msgid "All"
+msgstr "All"
+
+msgid "Select File"
+msgstr "Select File"
+
+msgid "Select Directory"
+msgstr "Select Directory"
+
+msgid "Waiting"
+msgstr "Waiting"
+
+msgid "Loading"
+msgstr "Loading"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Converting"
+msgstr "Converting"
+
+msgid "Finish"
+msgstr "Finish"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "File conversion completed!"
+msgstr "File conversion completed!"
+
+msgid "converted"
+msgstr "converted"
+
+msgid "error"
+msgstr "error"

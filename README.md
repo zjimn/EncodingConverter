@@ -101,7 +101,7 @@
     │   ├── progress_bar.py 
     │   ├── scrollable_frame.py 
     │   ├── icon_checkbox.py 
-    │   └── tooltip.py 
+    │   ├── tooltip.py 
     │   └── underlined_frame.py 
     ├── res/ 
     │   └── icon/ 
@@ -113,7 +113,7 @@
     │       └── filter.png 
     ├── settings/ 
     │   ├── encoding_options.py 
-    │   └── filter_options.py 
+    │   ├── filter_options.py 
     │   └── search_filter_options.py 
     ├── views/ 
     │   └── file_list_view.py 

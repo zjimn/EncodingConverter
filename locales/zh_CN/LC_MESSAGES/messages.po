@@ -3,6 +3,9 @@ msgstr ""
 "Language: zh_CN\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+msgid "encoding convert tool"
+msgstr "编码转换工具"
+
 msgid "Auto Detect"
 msgstr "自动识别"
 

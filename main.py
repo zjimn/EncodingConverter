@@ -4,6 +4,7 @@ from tkinter import ttk
 
 from ttkbootstrap import Style
 
+from manager.LanguageManager import LanguageManager
 from manager.conversion_manager import ConversionManager
 from setting.encoding_options import EncodingOptions
 from view.file_list_view import FileListView
@@ -16,10 +17,11 @@ from util.window_util import center_window
 from manager.progress_manager import ProgressManager
 
 
-class EncodingConverterApp(tk.Tk):
+class EncodingConverterApp(tk.Tk, LanguageManager):
     def __init__(self):
-        super().__init__()
-        self.title("encoding convert tool")
+        tk.Tk.__init__(self)
+        LanguageManager.__init__(self)
+        self.title(self._("encoding convert tool"))
         self.geometry("1000x620")
         center_window(self, 1000, 620)
         # Initialize styles

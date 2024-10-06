@@ -1,11 +1,15 @@
 import gettext
 import os
 
+from util.config_loader import ConfigLoader
+
+
 class LanguageManager:
-    def __init__(self, default_language='zh_CN'):
+    def __init__(self, config_path='config/config.json'):
         self.lang = None
         self._ = None
-        self.current_language = default_language
+        config_loader = ConfigLoader()
+        self.current_language = config_loader.get('default_language', 'zh_CN')  # Fallback to 'zh_CN'
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         self.localedir = os.path.join(project_root, 'locales')
         self.setup_translation()

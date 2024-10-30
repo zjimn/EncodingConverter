@@ -6,6 +6,7 @@ class ConfigLoader:
         self.config = self.load_config()
 
     def load_config(self):
+        config_path = ""
         try:
             project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
             config_dir = os.path.join(project_root, 'config')
@@ -13,7 +14,7 @@ class ConfigLoader:
             with open(config_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f"Could not load configuration file: {self.config_path}. Error: {e}")
+            print(f"Could not load configuration file: {config_path}. Error: {e}")
             return {}
 
     def get(self, key, default=None):

@@ -1,6 +1,9 @@
 import json
 import os
 
+from util.path_util import get_base_path
+
+
 class ConfigLoader:
     def __init__(self):
         self.config = self.load_config()
@@ -8,7 +11,7 @@ class ConfigLoader:
     def load_config(self):
         config_path = ""
         try:
-            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+            project_root = get_base_path()
             config_dir = os.path.join(project_root, 'config')
             config_path = os.path.join(config_dir, 'config.json')
             with open(config_path, 'r', encoding='utf-8') as f:

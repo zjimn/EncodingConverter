@@ -2,6 +2,7 @@ import gettext
 import os
 
 from util.config_loader import ConfigLoader
+from util.path_util import get_base_path
 
 
 class LanguageManager:
@@ -10,7 +11,7 @@ class LanguageManager:
         self._ = None
         config_loader = ConfigLoader()
         self.current_language = config_loader.get('default_language', 'zh_CN')  # Fallback to 'zh_CN'
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        project_root = get_base_path()
         self.localedir = os.path.join(project_root, 'locales')
         self.setup_translation()
 

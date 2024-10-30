@@ -1,8 +1,12 @@
 import os
 import polib
+from tkinter import messagebox
+from util.path_util import get_base_path
+
 
 def convert_po_to_mo():
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+    project_root = get_base_path()
     locales_dir = os.path.join(project_root, 'locales')
     """Convert all .po files in the specified locales directory to .mo files."""
     # Traverse through the locales directory
